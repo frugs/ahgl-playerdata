@@ -1,12 +1,14 @@
 import asyncio
 from typing import List, TypeVar, Coroutine, Iterable, Callable
 
-I = TypeVar('I')
-O = TypeVar('O')
+Input = TypeVar('Input')
+Output = TypeVar('Output')
 
 
-async def async_map_ignore_failed(
-        func: Callable[[I], Coroutine[None, None, O]], iterable: Iterable[I]) -> List[O]:
+async def async_map(
+        func: Callable[[Input], Coroutine[None, None, Output]],
+        iterable: Iterable[Input],
+) -> List[Output]:
     fs = await asyncio.wait([
         asyncio.ensure_future(func(x))
         for x
