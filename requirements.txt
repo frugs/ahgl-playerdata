@@ -1,0 +1,3 @@
+aiohttp
+sc2gamedata>=0.0.13
+
