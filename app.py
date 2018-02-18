@@ -13,6 +13,7 @@ CLIENT_SECRET = os.getenv("BATTLE_NET_CLIENT_SECRET", "")
 TOURNAMENT_ID = os.getenv("TOURNAMENT_ID", "5a0a5ab14bd47c09ac5e966b")
 
 REGIONS = ["us", "eu", "kr"]
+SEASONS = 2
 
 
 def generate_player_summary(battlefy_player: str, ladder_team: dict) -> Tuple[str, str, int, str]:
@@ -43,7 +44,7 @@ async def async_main():
 
     async def retrieve_ladder_teams_for_region(region: str):
         access_token = await blizzard.get_access_token(CLIENT_ID, CLIENT_SECRET)
-        ladder_ids = await blizzard.retrieve_ladder_ids_for_current_season(access_token, region)
+        ladder_ids = await blizzard.retrieve_ladder_ids_for_recent_seasons(access_token, SEASONS, region)
 
         def is_ladder_team_battlefy_player(ladder_team: dict) -> bool:
             return any(
