@@ -8,7 +8,7 @@ LIMIT = 500
 
 
 async def retrieve_battlefy_teams(tournament_id: str) -> List[dict]:
-    with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session:
 
         async def retrieve_page(page_no: int) -> List[dict]:
             resp = await session.request(
